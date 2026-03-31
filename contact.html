@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Ron Soam | Fractional CMO &amp; Advisory Services | re:set</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wdth,wght@0,62.5,900;0,87.5,400;0,87.5,600;1,87.5,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --brand-purple: #5A3793;
+      --brand-purple-dark: #3d2566;
+      --brand-pink: #e72482;
+      --brand-pink-hover: #c91870;
+
+      --bg-white: #FFFFFF;
+      --bg-offwhite: #FAFAFA;
+      --bg-light: #F3F3F3;
+      --bg-offlight: #FAF8F4;
+
+      --text-dark: #1a1a2e;
+      --text-body: #3a3a4a;
+      --text-muted: #6b6b80;
+
+      --nav-bg: rgba(20, 10, 40, 0.82);
+      --footer-bg: rgba(20, 10, 40, 0.97);
+
+      --shadow-card: 0 2px 16px rgba(90, 55, 147, 0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-card-hover: 0 8px 32px rgba(90, 55, 147, 0.15), 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-form: 0 4px 32px rgba(90, 55, 147, 0.12), 0 1px 6px rgba(0,0,0,0.06);
+
+      --radius-pill: 999px;
+      --radius-card: 12px;
+
+      --font-h1: 'Noto Sans', sans-serif;
+      --font-body: 'Noto Sans', sans-serif;
+
+      --max-width: 1200px;
+      --section-pad: 96px 24px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-stretch: 87.5%;
+      color: var(--text-body);
+      background: var(--bg-white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY
+    ============================================================ */
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-stretch: 87.5%;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand-pink);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: var(--font-h1);
+      font-weight: 900;
+      font-stretch: 62.5%;
+      line-height: 1.05;
+      color: var(--text-dark);
+    }
+
+    h2 {
+      font-family: var(--font-h1);
+      font-weight: 900;
+      font-stretch: 62.5%;
+      line-height: 1.1;
+      color: var(--text-dark);
+    }
+
+    h3 {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-stretch: 87.5%;
+      line-height: 1.3;
+      color: var(--text-dark);
+    }
+
+    p { margin-bottom: 1.1em; }
+    p:last-child { margin-bottom: 0; }
+    strong { font-weight: 600; color: var(--text-dark); }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 30px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-stretch: 87.5%;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--brand-pink);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(231, 36, 130, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--brand-pink-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(231, 36, 130, 0.38);
+    }
+
+    /* ============================================================
+       NAVIGATION — identical to Home & About
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 72px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-logo { display: flex; align-items: center; flex-shrink: 0; }
+    .nav-logo img { height: 36px; width: auto; mix-blend-mode: screen; display: block; }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-stretch: 87.5%;
+      color: rgba(255,255,255,0.82);
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--brand-pink);
+      transition: width 0.25s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: #fff; }
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-cta { flex-shrink: 0; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: rgba(20, 10, 40, 0.97);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 24px;
+      z-index: 999;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-bottom: 20px; }
+    .mobile-menu ul a {
+      display: block;
+      padding: 12px 0;
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+      font-stretch: 87.5%;
+      font-size: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s;
+    }
+    .mobile-menu ul a:hover { color: #fff; }
+
+    /* ============================================================
+       HERO — full cover, identical treatment to Home & About
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('images/reset-contact.jpg');
+      background-size: cover;
+      background-position: center 25%;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(20, 8, 45, 0.88) 0%,
+        rgba(40, 15, 70, 0.78) 50%,
+        rgba(20, 8, 45, 0.72) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.0;
+      max-width: 860px;
+    }
+
+    .hero-sub {
+      font-size: 1.12rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 10px;
+      max-width: 600px;
+    }
+
+    .hero-body {
+      font-size: 1.0rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ============================================================
+       CONTACT SECTION — main body
+    ============================================================ */
+    .section { padding: var(--section-pad); }
+    .bg-offlight { background: var(--bg-offlight); }
+    .bg-white    { background: var(--bg-white); }
+    .bg-light    { background: var(--bg-light); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* ---- Form column ---- */
+    .form-card {
+      background: var(--bg-white);
+      border-radius: 16px;
+      padding: 44px 40px;
+      box-shadow: var(--shadow-form);
+    }
+
+    .form-card h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin-bottom: 10px;
+    }
+
+    .form-card .form-intro {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 7px;
+    }
+    .form-group label .req { color: var(--brand-pink); }
+
+    .form-control {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #e2e0ea;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-stretch: 87.5%;
+      color: var(--text-dark);
+      background: var(--bg-offwhite);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-control:focus {
+      border-color: var(--brand-purple);
+      box-shadow: 0 0 0 3px rgba(90,55,147,0.1);
+      background: #fff;
+    }
+    .form-control::placeholder { color: #bbb; }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* Custom select arrow */
+    select.form-control {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      justify-content: center;
+      padding: 15px;
+      font-size: 0.94rem;
+      margin-top: 8px;
+    }
+
+    /* ---- Sidebar column ---- */
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+    /* Booking highlight card */
+    .booking-card {
+      background: var(--bg-white);
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: var(--shadow-form);
+      position: relative;
+      overflow: hidden;
+    }
+    .booking-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--brand-purple), var(--brand-pink));
+    }
+
+    .booking-card .booking-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brand-pink);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .booking-card h3 {
+      font-size: 1.25rem;
+      color: var(--brand-purple);
+      margin-bottom: 14px;
+    }
+
+    .booking-card p {
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .booking-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    /* What we cover list */
+    .cover-card {
+      background: var(--bg-offwhite);
+      border-radius: var(--radius-card);
+      padding: 28px 28px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .cover-card h4 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .cover-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cover-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    .cover-list li::before {
+      content: '→';
+      color: var(--brand-pink);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Timezone badge */
+    .tz-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--bg-white);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      border-left: 3px solid var(--brand-purple);
+    }
+
+    .tz-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(90,55,147,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tz-icon svg { width: 18px; height: 18px; stroke: var(--brand-purple); }
+
+    .tz-text { }
+    .tz-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .tz-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       FOOTER — identical to Home & About
+    ============================================================ */
+    .footer {
+      background: var(--footer-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 60px 24px 28px;
+    }
+    .footer-inner { max-width: var(--max-width); margin: 0 auto; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-logo { display: flex; align-items: center; margin-bottom: 14px; }
+    .footer-logo img { height: 30px; width: auto; mix-blend-mode: screen; display: block; }
+
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .footer-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .social-links { display: flex; gap: 14px; margin-top: 20px; }
+    .social-link {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .social-link:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+    .social-link svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.7); }
+
+    .footer-nav-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-nav-col ul a {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      transition: color 0.2s;
+    }
+    .footer-nav-col ul a:hover { color: #fff; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { font-size: 0.8rem; color: rgba(255,255,255,0.35); transition: color 0.2s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.65); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .sidebar { flex-direction: row; flex-wrap: wrap; }
+      .booking-card { flex: 1 1 300px; }
+      .cover-card { flex: 1 1 300px; }
+      .tz-badge { flex: 1 1 100%; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --section-pad: 72px 20px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .nav-inner { grid-template-columns: auto 1fr auto; }
+      .hero h1 { font-size: 2.4rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 28px 22px; }
+      .sidebar { flex-direction: column; }
+      .footer-top { grid-template-columns: 1fr; gap: 36px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2rem; }
+      .btn { padding: 12px 22px; font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="home.html" class="nav-logo" aria-label="re:set home">
+        <img src="images/reset-wht.png" alt="re:set logo" />
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="https://cal.id/ronsoam/strategy-call" target="_blank" rel="noopener" class="btn btn-primary">
+          Schedule a Strategy Call ↗
+        </a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="https://cal.id/ronsoam/strategy-call" target="_blank" rel="noopener" class="btn btn-primary">
+      Schedule a Strategy Call ↗
+    </a>
+  </div>
+
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-bg" role="img" aria-label="Contact page background"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <span class="eyebrow">Let's Build Something Lasting</span>
+      <h1>Ready To Transform Your Marketing Into A Growth Engine?</h1>
+      <p class="hero-sub">Let's Start A Conversation.</p>
+      <p class="hero-body">45 minutes. No obligation. No pitch. Just a clear, honest conversation about your marketing challenges and growth.</p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTACT SECTION
+  ============================================================ -->
+  <section class="section bg-offlight" id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- ---- Form column ---- -->
+        <div class="form-card fade-up">
+          <h2 id="contact-heading">Make Your Move</h2>
+          <p class="form-intro">Let's talk. Share a bit about your company, your marketing growth goals, and the challenges you are facing.</p>
+
+          <form id="contactForm" novalidate>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Name <span class="req">*</span></label>
+                <input type="text" class="form-control" name="name" placeholder="Your full name" required />
+              </div>
+              <div class="form-group">
+                <label>Company <span class="req">*</span></label>
+                <input type="text" class="form-control" name="company" placeholder="Company name" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" class="form-control" name="email" placeholder="you@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label>What is your major marketing growth challenge? <span class="req">*</span></label>
+              <textarea class="form-control" name="challenge" placeholder="Share a brief description of your current situation, goals, and where you feel marketing is stuck.&#10;&#10;Examples: pipeline quality, positioning confusion, long sales cycles, scattered campaigns, low awareness in key markets." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Current ARR <span class="req">*</span></label>
+              <select class="form-control" name="arr" required>
+                <option value="" disabled selected>Select your current ARR</option>
+                <option value="prefer-not">Prefer Not To Say</option>
+                <option value="pre-revenue">Pre-Revenue Early</option>
+                <option value="1m-5m">$1M – $5M</option>
+                <option value="5m-20m">$5M – $20M</option>
+                <option value="20m-50m">$20M – $50M</option>
+                <option value="50m+">$50M+</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit">Submit →</button>
+
+          </form>
+        </div>
+
+        <!-- ---- Sidebar column ---- -->
+        <div class="sidebar">
+
+          <!-- Booking card -->
+          <div class="booking-card fade-up">
+            <span class="booking-eyebrow">Prefer Booking Directly?</span>
+            <h3>Skip the form. Book straight into my calendar.</h3>
+            <p>If you already know you want to talk, you can skip the form and schedule a time straight into my calendar.</p>
+            <a href="https://cal.id/ronsoam/strategy-call" target="_blank" rel="noopener" class="btn btn-primary">
+              Schedule a Strategy Call ↗
+            </a>
+            <p class="booking-note">45 minutes. No obligation.</p>
+          </div>
+
+          <!-- What we cover -->
+          <div class="cover-card fade-up">
+            <h4>What We Will Cover</h4>
+            <ul class="cover-list">
+              <li>Your current marketing situation</li>
+              <li>Where you want to be in the next 12–18 months</li>
+              <li>What is blocking progress today</li>
+              <li>What is the right starting point</li>
+            </ul>
+          </div>
+
+          <!-- Timezone -->
+          <div class="tz-badge fade-up">
+            <div class="tz-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div class="tz-text">
+              <div class="tz-label">Time Zone</div>
+              <div class="tz-value">US EST &amp; EU CET</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER — identical to Home & About
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="images/reset-wht.png" alt="re:set logo" />
+          </div>
+          <div class="footer-tagline">By Ron Soam<br>Fractional CMO &amp; Advisory Services</div>
+          <div class="footer-sub">Fortune 500 Scale. Startup Speed.</div>          
+        </div>
+
+        <div class="footer-nav-col">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="social-links">
+            <!-- LinkedIn -->
+            <a href="#" class="social-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <!-- YouTube -->
+            <a href="#" class="social-link" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="#" class="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copy">©2026 re:set. All Rights Reserved. Ron Soam — Fractional CMO</span>        
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+      });
+    });
+
+    // Scroll animations
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const siblings = Array.from(entry.target.parentElement.querySelectorAll('.fade-up:not(.visible)'));
+          const idx = siblings.indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, Math.min(idx * 100, 300));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // ── Shared helpers ──────────────────────────────────────────────
+    function isValidEmail(email) {
+      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/.test(email.trim());
+    }
+
+    function setFieldError(input, message) {
+      clearFieldError(input);
+      input.classList.add('field-error');
+      const err = document.createElement('span');
+      err.className = 'field-error-msg';
+      err.setAttribute('role', 'alert');
+      err.textContent = message;
+      input.parentElement.appendChild(err);
+    }
+
+    function clearFieldError(input) {
+      input.classList.remove('field-error');
+      const existing = input.parentElement.querySelector('.field-error-msg');
+      if (existing) existing.remove();
+    }
+
+    (function injectValidationStyles() {
+      const style = document.createElement('style');
+      style.textContent = `
+        .field-error { border-color: #e72482 !important; box-shadow: 0 0 0 3px rgba(231,36,130,0.15) !important; }
+        .field-error-msg { display: block; font-size: 0.78rem; color: #e72482; margin-top: 5px; font-weight: 500; }
+      `;
+      document.head.appendChild(style);
+    })();
+
+    // Contact form → Google Sheets
+    const form = document.getElementById('contactForm');
+    if (form) {
+
+      const emailInput = form.querySelector('input[name="email"]');
+      if (emailInput) {
+        emailInput.addEventListener('blur', () => {
+          if (emailInput.value.trim() && !isValidEmail(emailInput.value)) {
+            setFieldError(emailInput, 'Please enter a valid email address (e.g. you@company.com).');
+          } else {
+            clearFieldError(emailInput);
+          }
+        });
+        emailInput.addEventListener('input', () => {
+          if (emailInput.classList.contains('field-error') && isValidEmail(emailInput.value)) {
+            clearFieldError(emailInput);
+          }
+        });
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        const data = Object.fromEntries(new FormData(form));
+        let hasError = false;
+
+        form.querySelectorAll('[required]').forEach(input => {
+          const val = input.value.trim();
+          if (!val) {
+            setFieldError(input, 'This field is required.');
+            hasError = true;
+          } else if (input.type === 'email' && !isValidEmail(val)) {
+            setFieldError(input, 'Please enter a valid email address (e.g. you@company.com).');
+            hasError = true;
+          } else {
+            clearFieldError(input);
+          }
+        });
+
+        if (hasError) { form.querySelector('.field-error')?.focus(); return; }
+
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+
+        try {
+          // ⚠️ Replace YOUR_SCRIPT_ID with your Google Apps Script deployment ID
+          const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwSqIy1J9dnGdkp0C_2AhxsCk5p9B7InbgCfzVz6yl56xAn8crlLVAe_7LFvpt0-d8Irw/exec';
+          await fetch(SHEET_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...data, page: 'Contact', timestamp: new Date().toISOString() })
+          });
+          btn.textContent = 'Message Sent ✓';
+          btn.style.background = '#22a87d';
+          form.reset();
+          form.querySelectorAll('[required]').forEach(clearFieldError);
+        } catch {
+          btn.textContent = 'Submit →';
+          btn.disabled = false;
+          alert('Something went wrong. Please try again or email ronsoam@gmail.com directly.');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
